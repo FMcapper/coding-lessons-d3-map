@@ -40,12 +40,16 @@
         var unemployment = d3.map(data[1], function(d){ return d.id; });
       
         //https://observablehq.com/@d3/choropleth
-        var color = d3.scaleQuantize([1, 10], d3.schemeBlues[9])
+        var color = d3.scaleQuantize([1,8], d3.schemeRdYlGn[5].reverse())
       
-        //https://github.com/topojson/us-atlas
+        https://github.com/topojson/us-atlas
         var projection = d3.geoAlbersUsa()
             .scale(1300)
-            .translate([487.5, 305])
+            .translate([487.5, 305]);
+
+        // var projection = d3.geoMercator()
+        //     .scale(500)
+        //     .translate([1500, 800]);
 
         var path = d3.geoPath()
             .projection(projection);
@@ -63,6 +67,14 @@
           .attr("fill", "none")
           .attr("stroke", "black")
           .attr("stroke-width", "0.3px")
+
+        svg.append("circle")
+          .attr("cx", projection([-122.26, 37.87])[0])
+          .attr("cy", projection([-122.26, 37.87])[1])
+          .attr("r", 10)
+          .attr("fill", "none")
+          .attr("stroke", "black")
+          .attr("fill-opacity", 0.5)
 
     });
 
